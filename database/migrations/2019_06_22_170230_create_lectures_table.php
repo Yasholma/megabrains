@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateLecturesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('lectures', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('title');
+            $table->longText('video_link')->nullable();
+            $table->longText('notes')->nullable();
+            $table->integer('section_id');
+            $table->foreign('section_id')->references('id')->on('sections');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('lectures');
+    }
+}
